@@ -18,10 +18,11 @@ app.get('/', (req, res) => {
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
 
-    // Print credentials to console (for demonstration purposes)
     // Ensure this is removed or commented out in production
-    console.log('Username:', username);
-    console.log('Password:', password); // Note: Never log passwords in production
+    if (process.env.NODE_ENV !== 'production') {
+        console.log('Username:', username);
+        console.log('Password:', password); // Note: Never log passwords in production
+    }
 
     // Redirect to the vote page
     res.redirect('https://vote-today.github.io/vote/');
